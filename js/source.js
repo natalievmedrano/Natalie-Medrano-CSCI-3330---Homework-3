@@ -99,9 +99,93 @@ $(function () {
     // Do not modify the JS objects above. You will write your code below.
     // *********************************************************************
 
+    $(".revenue-amt").text(revenueAmt);
+    $("#customer-num").text(customerNum);
+    $("#orders-amt").text(ordersAmt);
+    $("#issues-amt").text(issuesAmt);
+    $("#username").text(username);
+    $("#notification-num").text(notifAmt);
+
+    //customer table
+    $("customerTableBody").empty();
+        let row = $("<tr>");
 
 
-       
+        row.append($("<td>").text(customer.name));
+        row.append($("<td>").text(customer.email));
+
+        let statusClass = customer.status === "Active"
+            ? "status-active"
+            : "status-pending";
+
+        row.append(
+            $("<td>").append(
+                $("<span>")
+                    .addClass("status " + statusClass)
+                    .text(customer.status)
+            )
+        );
+         row.append($("<td>").text(customer.joined));
+
+        $("#customerTableBody").append(row);
+    });
+
+
+    // dynamic sales table
+
+    $("#salesTableBody").empty();
+
+    sales.forEach(function(item) {
+        let row = $("<tr>");
+
+        row.append($("<td>").text(item.product));
+        row.append($("<td>").text(item.quantity));
+        row.append($("<td>").text(item.revenue));
+
+        $("#salesTableBody").append(row);
+    });
+
+
+    // dynamic activity list
+    $("#activity-list").empty();
+
+    activities.forEach(function(activity) {
+        $("#activity-list").append(
+            $("<li>").text(activity.message)
+        );
+    });
+
+
+    // dynamic system messages
+    $("#system-status-list").empty();
+
+    messages.forEach(function(message) {
+        $("#system-status-list").append(
+            $("<li>").text(message.messsage)
+        );
+    });
+
+
+    // dynamic notifications
+    $("#notifications-list").empty();
+
+    notifications.forEach(function(notification) {
+        $("#notifications-list").append(
+            $("<li>").text(notification.messsage)
+        );
+    });
+
+
+    // dynamic tasks
+    $("#tasks-list").empty();
+
+    tasks.forEach(function(task) {
+        $("#tasks-list").append(
+            $("<li>").text(task.messsage)
+        );
+      
+
+
 
 
     });
