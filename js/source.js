@@ -106,30 +106,31 @@ $(function () {
     $("#username").text(username);
     $("#notification-num").text(notifAmt);
 
-    //customer table
-    $("customerTableBody").empty();
-        let row = $("<tr>");
+    // customer table
+$("#customerTableBody").empty();
 
+customers.forEach(function(customer) {
+    let row = $("<tr>");
 
-        row.append($("<td>").text(customer.name));
-        row.append($("<td>").text(customer.email));
+    row.append($("<td>").text(customer.name));
+    row.append($("<td>").text(customer.email));
 
-        let statusClass = customer.status === "Active"
-            ? "status-active"
-            : "status-pending";
+    let statusClass = customer.status === "Active"
+        ? "status-active"
+        : "status-pending";
 
-        row.append(
-            $("<td>").append(
-                $("<span>")
-                    .addClass("status " + statusClass)
-                    .text(customer.status)
-            )
-        );
-         row.append($("<td>").text(customer.joined));
+    row.append(
+        $("<td>").append(
+            $("<span>")
+                .addClass("status " + statusClass)
+                .text(customer.status)
+        )
+    );
 
-        $("#customerTableBody").append(row);
-    });
+    row.append($("<td>").text(customer.joined));
 
+    $("#customerTableBody").append(row);
+});
 
     // dynamic sales table
 
@@ -183,8 +184,56 @@ $(function () {
         $("#tasks-list").append(
             $("<li>").text(task.messsage)
         );
-      
+    });
+// j query elements
+// jQuery UI button widgets
+    $("button").button();
 
+
+    // Convert dashboardTabs into a jQuery UI Tabs widget
+    $("#dashboardTabs").tabs();
+
+
+    // Convert customerDialog into a jQuery UI Dialog widget
+    $("#customerDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 450,
+        buttons: {
+            "Create Customer": function () {
+                var name = $("#customerName").val();
+                var email = $("#customerEmail").val();
+
+                if (!name || !email) {
+                    alert("Please enter a name and email.");
+                    return;
+                }
+
+                alert("Customer created: " + name);
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    // jQuery UI Accordion widget
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+
+
+    //opens customer dialouge box
+    $("#newCustomerButton").on("click", function () {
+        $("#customerDialog").dialog("open");
+    });
+
+
+    // jQuery UI Datepicker for customer date
+    $("#customerDate").datepicker();
 
 
 
