@@ -99,9 +99,142 @@ $(function () {
     // Do not modify the JS objects above. You will write your code below.
     // *********************************************************************
 
+    $(".revenue-amt").text(revenueAmt);
+    $("#customer-num").text(customerNum);
+    $("#orders-amt").text(ordersAmt);
+    $("#issues-amt").text(issuesAmt);
+    $("#username").text(username);
+    $("#notification-num").text(notifAmt);
+
+    // customer table
+$("#customerTableBody").empty();
+
+customers.forEach(function(customer) {
+    let row = $("<tr>");
+
+    row.append($("<td>").text(customer.name));
+    row.append($("<td>").text(customer.email));
+
+    let statusClass = customer.status === "Active"
+        ? "status-active"
+        : "status-pending";
+
+    row.append(
+        $("<td>").append(
+            $("<span>")
+                .addClass("status " + statusClass)
+                .text(customer.status)
+        )
+    );
+
+    row.append($("<td>").text(customer.joined));
+
+    $("#customerTableBody").append(row);
+});
+
+    // dynamic sales table
+
+    $("#salesTableBody").empty();
+
+    sales.forEach(function(item) {
+        let row = $("<tr>");
+
+        row.append($("<td>").text(item.product));
+        row.append($("<td>").text(item.quantity));
+        row.append($("<td>").text(item.revenue));
+
+        $("#salesTableBody").append(row);
+    });
 
 
-       
+    // dynamic activity list
+    $("#activity-list").empty();
+
+    activities.forEach(function(activity) {
+        $("#activity-list").append(
+            $("<li>").text(activity.message)
+        );
+    });
+
+
+    // dynamic system messages
+    $("#system-status-list").empty();
+
+    messages.forEach(function(message) {
+        $("#system-status-list").append(
+            $("<li>").text(message.messsage)
+        );
+    });
+
+
+    // dynamic notifications
+    $("#notifications-list").empty();
+
+    notifications.forEach(function(notification) {
+        $("#notifications-list").append(
+            $("<li>").text(notification.messsage)
+        );
+    });
+
+
+    // dynamic tasks
+    $("#tasks-list").empty();
+
+    tasks.forEach(function(task) {
+        $("#tasks-list").append(
+            $("<li>").text(task.messsage)
+        );
+    });
+// j query elements
+// jQuery UI button widgets
+    $("button").button();
+
+
+    // Convert dashboardTabs into a jQuery UI Tabs widget
+    $("#dashboardTabs").tabs();
+
+
+    // Convert customerDialog into a jQuery UI Dialog widget
+    $("#customerDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 450,
+        buttons: {
+            "Create Customer": function () {
+                var name = $("#customerName").val();
+                var email = $("#customerEmail").val();
+
+                if (!name || !email) {
+                    alert("Please enter a name and email.");
+                    return;
+                }
+
+                alert("Customer created: " + name);
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    // jQuery UI Accordion widget
+    $("#accordion").accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+
+
+    //opens customer dialouge box
+    $("#newCustomerButton").on("click", function () {
+        $("#customerDialog").dialog("open");
+    });
+
+
+    // jQuery UI Datepicker for customer date
+    $("#customerDate").datepicker();
+
 
 
     });
